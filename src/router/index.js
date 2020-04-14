@@ -6,6 +6,7 @@ Vue.use(VueRouter); // 使用 vue-router
 
 import App from '../App.vue';
 import Home from "../pages/home/Home.vue";
+import Manage from "../pages/manage/Manage.vue";
 
 /**
  * 路由关系：
@@ -48,6 +49,9 @@ const routes = [
             {
                 // 应用首页
                 path: "home", component: Home, name: "Home",
+                children: [
+                    { path: "manage", component: Manage, name: "Manage" },
+                  ]
             }
         ]
     }
