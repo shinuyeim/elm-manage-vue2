@@ -7,7 +7,7 @@ Vue.use(VueRouter); // 使用 vue-router
 import App from '../App.vue';
 import Home from "../pages/home/Home.vue";
 import Manage from "../pages/manage/Manage.vue";
-
+import Merchant from "../pages/merchant/Merchant.vue";
 /**
  * 路由关系：
  * /login                     /home                     /home/service  
@@ -51,6 +51,7 @@ const routes = [
                 path: "home", component: Home, name: "Home",
                 children: [
                     { path: "manage", component: Manage, name: "Manage" },
+                    { path: "merchant", component: Merchant, name: "Merchant" },
                   ]
             }
         ]
