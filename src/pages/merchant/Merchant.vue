@@ -51,7 +51,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作">
+      <el-table-column fixed="right" label="操作" min-width="100">
         <template slot-scope="scope">
           <!-- 删除过程中，禁用其他操作 -->
           <el-button

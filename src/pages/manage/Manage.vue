@@ -37,10 +37,10 @@
         </template>
       </el-table-column>
       <el-table-column fixed prop="name" label="姓名" min-width="100" sortable></el-table-column>
-      <el-table-column prop="date" label="注册日期" min-width="200" sortable></el-table-column>
+      <el-table-column prop="date" label="注册日期" min-width="100" sortable></el-table-column>
       <el-table-column prop="address" label="地址" min-width="100" sortable></el-table-column>
-      <el-table-column prop="power" label="用户组" min-width="200"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="300">
+      <el-table-column prop="power" label="用户组" min-width="100"></el-table-column>
+      <el-table-column fixed="right" label="操作" min-width="100">
         <template slot-scope="scope">
           <!-- 删除过程中，禁用其他操作 -->
           <el-button
@@ -55,16 +55,6 @@
             type="danger"
             size="small"
           >删除</el-button>
-          <el-button
-            :disabled="showDeleteCheckbox"
-            @click="moveTableItem(scope.row.id, 'up')"
-            size="small"
-          >上移</el-button>
-          <el-button
-            :disabled="showDeleteCheckbox"
-            @click="moveTableItem(scope.row.id, 'down')"
-            size="small"
-          >下移</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -169,31 +159,6 @@ export default {
       );
       // 再重新赋值
       this.tableData = tableData;
-    },
-    // 移动一个数据
-    moveTableItem(id, direction) {
-      
-      const dataLength = this.tableData.length;
-      // 查找到对应的索引，然后取出，再插入
-      const index = this.tableData.findIndex(x => x.id === id);
-      switch (direction) {
-        // 上移
-        case "up":
-          if (index > 0) {
-            // 第一个不进行上移
-            const item = this.tableData.splice(index, 1)[0];
-            this.tableData.splice(index - 1, 0, item);
-          }
-          break;
-        // 下移
-        case "down":
-          if (index < dataLength - 1) {
-            // 最后一个不进行下移
-            const item = this.tableData.splice(index, 1)[0];
-            this.tableData.splice(index + 1, 0, item);
-          }
-          break;
-      }
     },
     // 切换选中的选项
     toggleChosenItem(id) {
