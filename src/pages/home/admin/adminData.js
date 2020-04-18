@@ -9,17 +9,17 @@ const finallyNames = ["杰", "桐", "轩", "宇"];
 const dateNow = new Date();
 
 const addresses = ["北京", "上海", "广州", "深圳"];
-const powers = ["超级管理员", "管理员"];
+const privileges = ["超级管理员", "管理员"];
 
 for (let i = 0; i < 200; i++) {
   const name = firstNames[(Math.floor(Math.random() * 4))] + secondNames[(Math.floor(Math.random() * 4))] + finallyNames[(Math.floor(Math.random() * 4))];
   const date = moment(dateNow).subtract((Math.floor(Math.random() * 900)+10),'days');
   const address = addresses[(Math.floor(Math.random() * 4))];
-  let power = {};
+  let privilege = {};
   if (i === 0) {
-    power = powers[0];
+    privilege = privileges[0];
   } else {
-    power = powers[1];
+    privilege = privileges[1];
   }
 
   const tableItem = {
@@ -27,7 +27,7 @@ for (let i = 0; i < 200; i++) {
     name,
     date:date.format('YYYY-MM-DD'),
     address: address,
-    power: power
+    privilege: privilege
   };
   tableData.push(tableItem);
 }

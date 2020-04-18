@@ -69,7 +69,7 @@ const menus = [
     text: "数据管理", // 父菜单名字
     icon: "el-icon-setting", // 父菜单图标
     subMenus: [
-      { text: "管理员信息", routerName: "Manage" },
+      { text: "管理员信息", routerName: "Admin" },
       { text: "商家信息", routerName: "Merchant" },
       { text: "顾客信息", routerName: "" },
       { text: "产品信息", routerName: "" },

@@ -12,7 +12,7 @@
           <i :class="isMenuCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" />
         </el-button>
         <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"><span>欢迎回来，{{username}}</span></i>
+          <i class="el-icon-setting" style="margin-right: 15px"><span>欢迎回来，{{"username"}}</span></i>
           <el-dropdown-menu slot="dropdown">
             <!-- 点击退出登录，el-dropdown-item 中需要加 .native 才能获取到点击事件 -->
             <el-dropdown-item width="100" @click.native="logout()">退出</el-dropdown-item>
