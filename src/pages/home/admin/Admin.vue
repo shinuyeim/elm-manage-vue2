@@ -3,7 +3,7 @@
     <section v-loading="loading" element-loading-text="Loading...">
       <el-table
         stripe
-        :data="tableData"
+        :data="shownData"
         style="width:100%"
         :default-sort="{ prop: 'user_name', order: 'ascending' }"
       >
@@ -34,12 +34,13 @@
 
 <script>
 import * as api from "@/api/index.js";
+import moment from "moment";
 // 下面是 Vue 组件
 export default {
   data() {
     return {
       loading: true,
-      tableData: [], // tableData: tableData 的简写
+      tableData: [],
       totalCount: 0,
       currentPage: 1, //当前页码
       pageSize: 20, //每页条目数量
@@ -101,6 +102,14 @@ export default {
     }
   },
   computed: {
+    shownData() {
+      return this.tableData.map(item => {
+        return Object.assign(item, {
+          register_date: moment(item.register_date).format("YYYY-MM-DD"),
+          privilege: item.privilege ? "管理员" : "超级管理员"
+        });
+      });
+    },
     startIndex() {
       return (this.currentPage - 1) * this.pageSize;
     }
