@@ -1,12 +1,15 @@
-import fetch from './fetch'
+import fetchWrapper from "./fetchWrapper";
 
 /**
  * 管理员列表
  */
 
-export const getAdminList = parameters => fetch('/admins', parameters);
+export const getAdminList = (querys) => {
+    const url = "/admins";
+    return fetchWrapper(url, { querys });
+};
 
-export const deleteAdminById = function (id) {
-    const url='/admins/'+id;
-    return fetch(url,{},'DELETE');
+export const deleteAdminById = (id) => {
+    const url = "/admins/" + id;
+    return fetchWrapper(url, { method: "DELETE" });
 };
