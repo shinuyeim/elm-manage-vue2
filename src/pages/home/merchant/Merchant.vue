@@ -64,7 +64,7 @@
             >编辑</el-button>
             <el-button
               :disabled="showDeleteCheckbox"
-              @click="deleteTableItem([scope.row.id])"
+              @click="deleteTableItem([scope.row._id])"
               type="danger"
               size="small"
             >删除</el-button>
@@ -176,13 +176,23 @@ export default {
       }
     },
     // 删除一个数据
-    deleteTableItem(idArray) {
-      // 查找到对应的索引，然后过滤掉
-      const tableData = this.tableData.filter(
-        x => idArray.indexOf(x.id) === -1
-      );
-      // 再重新赋值
-      this.tableData = tableData;
+    deleteTableItem(id) {
+      api
+        .deleteMerchantById(id)
+        .then(response => {
+          if (response.ok) {
+            this.$message({
+              message: "Delete sucess",
+              type: "success"
+            });
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.getMerchant();
+        });
     },
     // 切换选中的选项
     toggleChosenItem(id) {
@@ -235,7 +245,9 @@ export default {
           this.totalCount = jsonData.metadata.Total;
           this.tableData = jsonData.data;
         })
-        .catch(error => {console.error(error);})
+        .catch(error => {
+          console.error(error);
+        })
         .finally(() => (this.loading = false));
     }
   },

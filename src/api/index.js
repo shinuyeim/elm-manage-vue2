@@ -18,3 +18,8 @@ export const getMerchantList = (querys) => {
     const url = "/v1/merchants";
     return fetchWrapper(url, { querys });
 };
+
+export const deleteMerchantById = (id) => {
+    const url = "/v1/merchants/" + id;
+    return fetchWrapper(url, { method: "DELETE" });
+};
