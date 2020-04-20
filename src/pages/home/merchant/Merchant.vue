@@ -168,17 +168,31 @@ export default {
     // 新增/修改一个数据
     updateTableItem(item = {}) {
       // 检查是否有 id，有则更新，没有则新增
-      if (item.id !== undefined) {
-        // // 更新值
-        // let itemIndex = this.tableData.findIndex(x => x.id === item.id);
-        // if (itemIndex > -1) {
-        //   // Vue 中数组更新不能直接使用 array[index] = xxx; 的方式，可以参考https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9
-        //   this.tableData.splice(itemIndex, 1, { ...item });
-        // }
+      if (item._id !== undefined) {
+        const id = item._id;
+        delete item._id;
+        api
+          .updataMerchantById(id, item)
+          .then(response => {
+            if (response.ok) {
+              this.$message({
+                message: "Update sucess",
+                type: "success"
+              });
+            } else {
+              this.$message({
+                message: "Update failed",
+                type: "error"
+              });
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          })
+          .finally(() => {
+            this.getMerchant();
+          });
       } else {
-        // 添加到列表中，同时自增 id
-        // this.tableData.push({ ...item, id: this.tableData.length + 1 });
-        // console.log(item);
         api
           .createMerchant(item)
           .then(response => {
