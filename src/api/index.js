@@ -13,3 +13,8 @@ export const deleteAdminById = (id) => {
     const url = "/admins/" + id;
     return fetchWrapper(url, { method: "DELETE" });
 };
+
+export const getMerchantList = (querys) => {
+    const url = "/v1/merchants";
+    return fetchWrapper(url, { querys });
+};

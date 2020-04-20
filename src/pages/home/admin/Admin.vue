@@ -80,6 +80,7 @@ export default {
       this.getAdmin();
     },
     getAdmin() {
+      this.loading = true;
       api
         .getAdminList({ offset: this.startIndex, limit: this.pageSize })
         .then(response => {

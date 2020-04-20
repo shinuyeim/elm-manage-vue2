@@ -18,15 +18,24 @@ for (let i = 0; i < 20; i++) {
   const name = names[(Math.floor(Math.random() * 4))];
   const date = moment(dateNow).subtract((Math.floor(Math.random() * 900) + 10), 'days');
   const address = address1[(Math.floor(Math.random() * 4))] + address2[(Math.floor(Math.random() * 4))] + (Math.floor(Math.random() * 900) + 100) + "号";
-  let introductioni = {};
+  let introduction = {};
   if (name === "同福客栈") {
-    introductioni = introductionies[0];
+    introduction = introductionies[0];
   } else if (name === "和平饭店") {
-    introductioni = introductionies[1];
+    introduction = introductionies[1];
   } else if (name === "永和大王") {
-    introductioni = introductionies[2];
+    introduction = introductionies[2];
   } else if (name === "盒马") {
-    introductioni = introductionies[3];
+    introduction = introductionies[3];
+  }
+  let phone = '1';
+  for (let i = 1; i < 11; i++) {
+    const numbers = [3, 4, 5, 7, 8];
+    if (i === 1) {
+      phone += numbers[(Math.floor(Math.random() * 5))].toString();
+      continue;
+    }
+    phone += (Math.floor(Math.random() * 10)).toString();
   }
 
   const tableItem = {
@@ -34,7 +43,8 @@ for (let i = 0; i < 20; i++) {
     name,
     date: date.format('YYYY-MM-DD'),
     address: address,
-    introductioni: introductioni
+    phone:phone,
+    introduction: introduction
   };
   tableData.push(tableItem);
 }
