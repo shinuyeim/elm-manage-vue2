@@ -124,6 +124,8 @@
 // import tableData from "./merchantData.js";
 import * as api from "@/api/index.js";
 import moment from "moment";
+import eachLimit from "async/eachLimit";
+
 // 下面是 Vue 组件
 export default {
   data() {
@@ -216,30 +218,37 @@ export default {
           });
       }
     },
-    // 删除一个数据
-    deleteTableItem(id) {
-      api
-        .deleteMerchantById(id)
-        .then(response => {
-          if (response.ok) {
-            this.$message({
-              message: "Delete sucess",
-              type: "success"
-            });
-          } else {
-            this.$message({
-              message: "Delete failed",
-              type: "error"
-            });
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.getMerchant();
-        });
+    // 删除数据
+    deleteTableItem(idArr) {
+      // async.eachLimit(arr, limit, iterator, callback)
+      eachLimit(
+        idArr,
+        3,
+        (idItem, cb) => {
+          api
+            .deleteMerchantById(idItem)
+            .then(response => {
+              if (response.ok) {
+                this.$message({
+                  message: "Delete sucess",
+                  type: "success"
+                });
+              } else {
+                this.$message({
+                  message: "Delete failed",
+                  type: "error"
+                });
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            })
+            .finally(cb);
+        },
+        this.getMerchant()
+      );
     },
+
     // 切换选中的选项
     toggleChosenItem(id) {
       const index = this.chosenItem.findIndex(x => x.id === id);
