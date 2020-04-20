@@ -44,7 +44,7 @@
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="top" width="500">
               <p>店铺名称: {{ scope.row.shop_name }}</p>
-              <p>地址: {{ scope.row.address }}</p>
+              <p>店铺地址: {{ scope.row.address }}</p>
               <p>店铺介绍: {{ scope.row.introduction }}</p>
               <div slot="reference" class="name-wrapper">
                 <el-tag size="medium">{{ scope.row.shop_name }}</el-tag>
@@ -53,7 +53,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column fixed="right" label="操作" min-width="100">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <!-- 删除过程中，禁用其他操作 -->
             <el-button
@@ -88,10 +88,10 @@
       <!-- model 绑定表单对象，rules 绑定表单规则，ref 用来校验规则 -->
       <el-form :model="form" :rules="formRules" ref="form">
         <!-- el-form-item 绑定表单样式，label 表单的名称，formLabelWidth 设置 label 的宽度, 设置 prop 来进行规则校验 -->
-        <el-form-item label="日期" :label-width="formLabelWidth" prop="date">
+        <el-form-item label="日期" :label-width="formLabelWidth" prop="register_date">
           <!-- 里面装载表单元素，这里装了个选择日期的组件，v-model 绑定选择值，value-format设置绑定值的格式，type 设置选择的范围，这里 date 表示到天 -->
           <el-date-picker
-            v-model="form.date"
+            v-model="form.register_date"
             value-format="yyyy-MM-dd"
             type="date"
             placeholder="注册日期"
@@ -139,20 +139,25 @@ export default {
       showDeleteCheckbox: false, // 是否批量删除
       chosenItem: [], // 选中的选项
       formRules: {
-        date: [
+        register_date: [
           {
             type: "string",
             required: true,
-            message: "请选择日期",
+            message: "请选择注册日期",
             trigger: "change"
           }
         ],
-        name: [
-          { required: true, message: "请输入名字", trigger: "change" },
-          { min: 2, max: 10, message: "长度在 2 到 10 个字", trigger: "blur" }
+        shop_name: [
+          { required: true, message: "请输入店铺名称", trigger: "blur" },
+          { min: 2, max: 20, message: "长度在 2 到 20 个字", trigger: "blur" }
         ],
-        introductioni: [{ required: true, trigger: "blur" }],
-        address: [{ required: true, trigger: "blur" }]
+        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
+        introduction: [
+          { required: true, message: "请输入店铺介绍", trigger: "blur" }
+        ],
+        address: [
+          { required: true, message: "请输入店铺地址", trigger: "blur" }
+        ]
       }
     };
   },
@@ -164,15 +169,37 @@ export default {
     updateTableItem(item = {}) {
       // 检查是否有 id，有则更新，没有则新增
       if (item.id !== undefined) {
-        // 更新值
-        let itemIndex = this.tableData.findIndex(x => x.id === item.id);
-        if (itemIndex > -1) {
-          // Vue 中数组更新不能直接使用 array[index] = xxx; 的方式，可以参考https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9
-          this.tableData.splice(itemIndex, 1, { ...item });
-        }
+        // // 更新值
+        // let itemIndex = this.tableData.findIndex(x => x.id === item.id);
+        // if (itemIndex > -1) {
+        //   // Vue 中数组更新不能直接使用 array[index] = xxx; 的方式，可以参考https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9
+        //   this.tableData.splice(itemIndex, 1, { ...item });
+        // }
       } else {
         // 添加到列表中，同时自增 id
-        this.tableData.push({ ...item, id: this.tableData.length + 1 });
+        // this.tableData.push({ ...item, id: this.tableData.length + 1 });
+        // console.log(item);
+        api
+          .createMerchant(item)
+          .then(response => {
+            if (response.ok) {
+              this.$message({
+                message: "Create sucess",
+                type: "success"
+              });
+            } else {
+              this.$message({
+                message: "Create failed",
+                type: "error"
+              });
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          })
+          .finally(() => {
+            this.getMerchant();
+          });
       }
     },
     // 删除一个数据
@@ -184,6 +211,11 @@ export default {
             this.$message({
               message: "Delete sucess",
               type: "success"
+            });
+          } else {
+            this.$message({
+              message: "Delete failed",
+              type: "error"
             });
           }
         })

@@ -23,3 +23,8 @@ export const deleteMerchantById = (id) => {
     const url = "/v1/merchants/" + id;
     return fetchWrapper(url, { method: "DELETE" });
 };
+
+export const createMerchant = (body) => {
+    const url = "/v1/merchants";
+    return fetchWrapper(url, { method: "POST", body });
+}

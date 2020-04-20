@@ -11,7 +11,7 @@
         <el-table-column prop="register_date" label="注册日期" min-width="200" sortable></el-table-column>
         <el-table-column prop="city" label="城市" min-width="100" sortable></el-table-column>
         <el-table-column prop="privilege" label="用户组" min-width="100" sortable></el-table-column>
-        <el-table-column fixed="right" label="操作" min-width="100">
+        <el-table-column label="操作" min-width="100">
           <template slot-scope="scope">
             <el-button @click="deleteTableItem(scope.row._id)" type="danger" size="small">删除</el-button>
           </template>
@@ -61,6 +61,11 @@ export default {
             this.$message({
               message: "Delete sucess",
               type: "success"
+            });
+          } else {
+            this.$message({
+              message: "Delete failed",
+              type: "error"
             });
           }
         })
