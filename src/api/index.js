@@ -1,22 +1,26 @@
 import fetchWrapper from "./fetchWrapper";
+import elmManageStorage from "@/utils/localStorage";
 
 /**
  * 管理员
  */
 
-export const adminLogin = (body)=>{
+export const adminLogin = (body) => {
     const url = "/admins/login";
-    return fetchWrapper(url,{method:"POST", body})
+    return fetchWrapper(url, { method: "POST", body });
 };
 
-export const adminRegister = (body)=>{
+export const adminRegister = (body) => {
     const url = "/admins/register";
-    return fetchWrapper(url,{method:"POST", body})
+    return fetchWrapper(url, { method: "POST", body });
 };
 
 export const getAdminList = (querys) => {
     const url = "/admins";
-    return fetchWrapper(url, { querys });
+
+    const token = elmManageStorage.fetch("token");
+    const headers = { Authorization: "Bearer " + token };
+    return fetchWrapper(url, { querys, headers });
 };
 
 export const deleteAdminById = (id) => {
