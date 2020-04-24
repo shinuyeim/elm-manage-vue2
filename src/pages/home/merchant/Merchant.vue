@@ -86,7 +86,7 @@
     <!-- el-dialog 是弹窗样式，title 绑定弹窗的标题内容，visible 绑定弹窗是否展示 -->
     <el-dialog title="新增" :visible.sync="dialogFormVisible">
       <!-- model 绑定表单对象，rules 绑定表单规则，ref 用来校验规则 -->
-      <el-form :model="form" :rules="formRules" ref="form">
+      <el-form :model="form" status-icon :rules="formRules" ref="form">
         <!-- el-form-item 绑定表单样式，label 表单的名称，formLabelWidth 设置 label 的宽度, 设置 prop 来进行规则校验 -->
         <el-form-item label="日期" :label-width="formLabelWidth" prop="register_date">
           <!-- 里面装载表单元素，这里装了个选择日期的组件，v-model 绑定选择值，value-format设置绑定值的格式，type 设置选择的范围，这里 date 表示到天 -->
@@ -200,7 +200,7 @@ export default {
           .then(async response => {
             if (response.ok) {
               this.$message({
-                message: "Create sucess",
+                message: "Create success",
                 type: "success"
               });
             } else {

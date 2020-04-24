@@ -7,7 +7,12 @@ import fetchWrapper from "./fetchWrapper";
 export const adminLogin = (body)=>{
     const url = "/admins/login";
     return fetchWrapper(url,{method:"POST", body})
-}
+};
+
+export const adminRegister = (body)=>{
+    const url = "/admins/register";
+    return fetchWrapper(url,{method:"POST", body})
+};
 
 export const getAdminList = (querys) => {
     const url = "/admins";
