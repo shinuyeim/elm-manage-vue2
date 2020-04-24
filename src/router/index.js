@@ -3,6 +3,7 @@ import Vue from 'vue';
 import VueRouter from "vue-router";
 
 Vue.use(VueRouter); // 使用 vue-router
+import elmManageStorage from "@/utils/localStorage";
 
 import App from '../App.vue';
 import Login from '../pages/Login.vue';
@@ -73,6 +74,21 @@ const routes = [
 const router = new VueRouter({
     routes, // （缩写）相当于 routes: routes
     strict: process.env.NODE_ENV !== 'production',
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.name === "Login" || to.name === "Register") {
+        return next();
+    }
+
+    // 非 login 页面，检查是否登录
+    if (!elmManageStorage.fetch("token")) {
+
+        return next({ name: "Login" });
+    }
+
+    next();
+
 });
 
 export default router;

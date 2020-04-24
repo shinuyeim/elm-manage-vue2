@@ -1,9 +1,8 @@
 const STORAGE_KEY = "elm_manage";
 
 const storage = {
-    fetch: function () {
-        let val = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        return val;
+    fetch: function (key) {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY))[key];
     },
     save: function (val) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(val));
