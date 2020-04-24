@@ -16,22 +16,21 @@ export default async (url = "",{ method = "GET", querys = {}, body = {} } = {} )
         }
     }
 
-    let requestConfig = {
-        credentials: "include",
+    const requestConfig = {
         method: method,
         headers: {
-            Accept: "application/json",
+            "Accept": "application/json",
             "Content-Type": "application/json",
         },
+        credentials: "include",
         mode: "cors",
-        cache: "default",
+        cache: "default"
     };
 
     if (Object.keys(body).length !== 0) {
-        Object.defineProperty(requestConfig, "body", {
-            value: JSON.stringify(body),
-        });
+        Object.assign(requestConfig,{body:JSON.stringify(body)})
     }
+
 
     return fetch(url, requestConfig);
 };

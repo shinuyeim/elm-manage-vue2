@@ -5,6 +5,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter); // 使用 vue-router
 
 import App from '../App.vue';
+import Login from '../pages/Login.vue';
 import Home from "../pages/home/Home.vue";
 import Admin from "../pages/home/admin/Admin.vue";
 import Merchant from "../pages/home/merchant/Merchant.vue";
@@ -47,12 +48,17 @@ const routes = [
         // 设置子路由
         children: [
             {
+                path: "login", // 子路由路径
+                component: Login, // 子路由组件，会替换父组件中<router-view>中的内容
+                name: "Login" // 路由名称
+            },
+            {
                 // 应用首页
                 path: "home", component: Home, name: "Home",
                 children: [
                     { path: "admin", component: Admin, name: "Admin" },
                     { path: "merchant", component: Merchant, name: "Merchant" },
-                  ]
+                ]
             }
         ]
     }
@@ -62,7 +68,5 @@ const router = new VueRouter({
     routes, // （缩写）相当于 routes: routes
     strict: process.env.NODE_ENV !== 'production',
 });
-
-
 
 export default router;

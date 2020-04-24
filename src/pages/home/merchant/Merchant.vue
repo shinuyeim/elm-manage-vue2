@@ -170,7 +170,7 @@ export default {
     // 新增/修改一个数据
     updateTableItem(item = {}) {
       // 检查是否有 id，有则更新，没有则新增
-      if (item._id !== undefined) {
+      if (undefined !== item._id) {
         const id = item._id;
         delete item._id;
         api
@@ -197,21 +197,23 @@ export default {
       } else {
         api
           .createMerchant(item)
-          .then(response => {
+          .then(async response => {
             if (response.ok) {
               this.$message({
                 message: "Create sucess",
                 type: "success"
               });
             } else {
-              this.$message({
-                message: "Create failed",
-                type: "error"
-              });
+              const err = await response.json();
+              throw err;
             }
           })
           .catch(error => {
             console.error(error);
+            this.$message({
+              message: "Create failed",
+              type: "error"
+            });
           })
           .finally(() => {
             this.getMerchant();
@@ -227,21 +229,23 @@ export default {
         (idItem, cb) => {
           api
             .deleteMerchantById(idItem)
-            .then(response => {
+            .then(async response => {
               if (response.ok) {
                 this.$message({
                   message: "Delete sucess",
                   type: "success"
                 });
               } else {
-                this.$message({
-                  message: "Delete failed",
-                  type: "error"
-                });
+                const err = await response.json();
+                throw err;
               }
             })
             .catch(error => {
               console.error(error);
+              this.$message({
+                message: "Delete failed",
+                type: "error"
+              });
             })
             .finally(cb);
         },
@@ -287,14 +291,17 @@ export default {
       this.loading = true;
       api
         .getMerchantList({ offset: this.startIndex, limit: this.pageSize })
-        .then(response => {
+        .then(async response => {
+          const respData = await response.json();
           if (response.ok) {
             this.$message({
               message: "Get sucess",
               type: "success"
             });
+            return respData;
+          } else {
+            throw respData;
           }
-          return response.json();
         })
         .then(jsonData => {
           this.totalCount = jsonData.metadata.Total;
@@ -302,6 +309,10 @@ export default {
         })
         .catch(error => {
           console.error(error);
+          this.$message({
+            message: "Get failed",
+            type: "error"
+          });
         })
         .finally(() => (this.loading = false));
     }
