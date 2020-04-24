@@ -8,11 +8,16 @@
     <el-container>
       <el-header>
         <!-- 点击切换收起左侧菜单 -->
-        <el-button @click="isMenuCollapse = !isMenuCollapse" style="font-size: 24px;padding: 5px 8px;">
+        <el-button
+          @click="isMenuCollapse = !isMenuCollapse"
+          style="font-size: 24px;padding: 5px 8px;"
+        >
           <i :class="isMenuCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" />
         </el-button>
         <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"><span>欢迎回来，{{"username"}}</span></i>
+          <i class="el-icon-setting" style="margin-right: 15px">
+            <span>欢迎回来，{{"username"}}</span>
+          </i>
           <el-dropdown-menu slot="dropdown">
             <!-- 点击退出登录，el-dropdown-item 中需要加 .native 才能获取到点击事件 -->
             <el-dropdown-item width="100" @click.native="logout()">退出</el-dropdown-item>
@@ -29,22 +34,26 @@
 </template>
 
 <script>
-import Menu from '../../components/Menu.vue';
+import Menu from "../../components/Menu.vue";
+import elmManageStorage from "@/utils/localStorage";
 
 export default {
-  name: 'app',
-  data:() =>{
+  name: "app",
+  data: () => {
     return {
-      isMenuCollapse: false, // 是否收起左侧菜单
-    }
+      isMenuCollapse: false // 是否收起左侧菜单
+    };
   },
   components: {
     Menu
   },
   methods: {
-      logout(){}
-  },
-}
+    logout() {
+      elmManageStorage.clear();
+      this.$router.push({ name: "Login" });
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -61,5 +70,4 @@ body {
   font-size: 12px;
   background-color: #ededed;
 }
-
 </style>
