@@ -1,22 +1,23 @@
 import { baseUrl } from "@/config/env";
 
-const requestConfig = {
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    },
-    credentials: "include",
-    mode: "cors",
-    cache: "default",
-};
 
-export default async (
+
+export default (
     url = "",
     { method = "GET", querys = {}, body = {}, headers = {} } = {}
 ) => {
     method = method.toUpperCase();
     url = baseUrl + url;
 
+    const requestConfig = {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+        mode: "cors",
+        cache: "default",
+    };
     Object.assign(requestConfig, { method: method });
 
     if (Object.keys(querys).length !== 0) {
@@ -38,7 +39,7 @@ export default async (
     if (Object.keys(headers).length !== 0) {
         Object.assign(requestConfig.headers, headers);
     }
-
-    console.log(requestConfig);
+    // console.log(url);
+    // console.log(requestConfig);
     return fetch(url, requestConfig);
 };

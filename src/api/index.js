@@ -15,6 +15,14 @@ export const adminRegister = (body) => {
     return fetchWrapper(url, { method: "POST", body });
 };
 
+export const getAdminProfile = () => {
+    const url = "/admins/profile";
+
+    const token = elmManageStorage.fetch("token");
+    const headers = { Authorization: "Bearer " + token };
+    return fetchWrapper(url, { headers });
+};
+
 export const getAdminList = (querys) => {
     const url = "/admins";
 
