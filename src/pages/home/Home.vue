@@ -50,7 +50,7 @@ export default {
     data: () => {
         return {
             user_name: "",
-            isMenuCollapse: false // 是否收起左侧菜单
+            isMenuCollapse: true // 是否收起左侧菜单
         };
     },
     mounted() {
