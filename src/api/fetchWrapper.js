@@ -1,4 +1,4 @@
-import { baseUrl } from "@/config/env";
+import { baseUrl } from "../config/env";
 
 
 

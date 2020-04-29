@@ -5,9 +5,9 @@
         stripe
         :data="shownData"
         style="width:100%"
-        :default-sort="{ prop: 'user_name', order: 'ascending' }"
+        :default-sort="{ prop: 'name', order: 'ascending' }"
       >
-        <el-table-column fixed prop="user_name" label="用户名" min-width="100" sortable></el-table-column>
+        <el-table-column fixed prop="name" label="用户名" min-width="100" sortable></el-table-column>
         <el-table-column prop="register_date" label="注册日期" min-width="200" sortable></el-table-column>
         <el-table-column prop="city" label="城市" min-width="100" sortable></el-table-column>
         <el-table-column prop="privilege" label="用户组" min-width="100" sortable></el-table-column>
