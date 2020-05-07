@@ -84,6 +84,7 @@ export default {
                         const respData = await response.json();
                         elmManageStorage.save({
                             user_name: respData.user_name,
+                            name: respData.name,
                             privilege: respData.privilege
                         });
                     });

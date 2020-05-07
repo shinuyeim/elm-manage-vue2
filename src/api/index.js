@@ -68,3 +68,37 @@ export const updataMerchantById = (id, body) => {
     const headers = { Authorization: "Bearer " + elmManageStorage.fetch("token") };
     return fetchWrapper(url, { method: "PUT", body, headers });
 };
+
+/**
+ * 顾客
+ */
+
+// 获取顾客列表
+export const getCustomerList = (querys) => {
+    const url = "/customers";
+
+    const headers = { Authorization: "Bearer " + elmManageStorage.fetch("token") };
+    return fetchWrapper(url, { querys, headers });
+};
+
+//删除顾客
+export const deleteCustomerById = (id) => {
+    const url = "/customers/" + id;
+
+    const headers = { Authorization: "Bearer " + elmManageStorage.fetch("token") };
+    return fetchWrapper(url, { method: "DELETE", headers });
+};
+//新增顾客
+export const createCustomer = (body) => {
+    const url = "/register/customer";
+
+    const headers = { Authorization: "Bearer " + elmManageStorage.fetch("token") };
+    return fetchWrapper(url, { method: "POST", body, headers });
+};
+//更新顾客信息
+export const updataCustomerById = (id, body) => {
+    const url = "/customers/" + id;
+
+    const headers = { Authorization: "Bearer " + elmManageStorage.fetch("token") };
+    return fetchWrapper(url, { method: "PUT", body, headers });
+};

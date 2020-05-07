@@ -11,6 +11,7 @@ import Register from '../pages/Register.vue';
 import Home from "../pages/home/Home.vue";
 import Admin from "../pages/home/admin/Admin.vue";
 import Merchant from "../pages/home/merchant/Merchant.vue";
+import Customer from "../pages/home/customer/Customer.vue";
 /**
  * 路由关系：
  * /login                     /home                     /home/service  
@@ -65,6 +66,7 @@ const routes = [
                 children: [
                     { path: "admin", component: Admin, name: "Admin" },
                     { path: "merchant", component: Merchant, name: "Merchant" },
+                    { path: "customer", component: Customer, name: "Customer" },
                 ]
             }
         ]
