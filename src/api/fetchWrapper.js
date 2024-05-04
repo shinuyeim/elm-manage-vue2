@@ -39,7 +39,5 @@ export default (
     if (Object.keys(headers).length !== 0) {
         Object.assign(requestConfig.headers, headers);
     }
-    // console.log(url);
-    // console.log(requestConfig);
     return fetch(url, requestConfig);
 };

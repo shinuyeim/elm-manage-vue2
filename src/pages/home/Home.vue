@@ -43,7 +43,7 @@
 
 <script>
 import Menu from "../../components/Menu.vue";
-import elmManageStorage from "@/utils/localStorage";
+import elmManageStorage from "../../utils/localStorage";
 
 export default {
     name: "app",
