@@ -4,13 +4,12 @@
             <el-row>
                 <el-col :span="24">
                     <!-- 删除过程中，不允许其他操作 -->
-                    <el-button
+                    <el-button type="primary"
                         v-if="!showDeleteCheckbox"
                         @click="
                             dialogFormNewVisible = true;
                             form = {};
                         "
-                        type="primary"
                         >新增</el-button
                     >
                     <el-button
@@ -81,22 +80,21 @@
                 <el-table-column label="操作" width="200">
                     <template slot-scope="scope">
                         <!-- 删除过程中，禁用其他操作 -->
-                        <el-button
+                        <el-button type="primary" icon="el-icon-edit" circle
                             :disabled="showDeleteCheckbox"
                             @click="
                                 form = { ...scope.row };
                                 dialogFormUpdateVisible = true;
                             "
-                            type="info"
                             size="small"
-                            >编辑</el-button
+                            ></el-button
                         >
                         <el-button
                             :disabled="showDeleteCheckbox"
                             @click="deleteTableItem([scope.row._id])"
-                            type="danger"
+                            type="danger"  icon="el-icon-delete" circle
                             size="small"
-                            >删除</el-button
+                            ></el-button
                         >
                     </template>
                 </el-table-column>
@@ -194,7 +192,7 @@
                     <el-input v-model="form.phone"></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="店铺地址"
+                    label="收货地址"
                     :label-width="formLabelWidth"
                     prop="address"
                 >

@@ -106,16 +106,16 @@
                                 form = { ...scope.row };
                                 dialogFormUpdateVisible = true;
                             "
-                            type="info"
                             size="small"
-                            >编辑</el-button
+                            type="primary" icon="el-icon-edit" circle
+                            ></el-button
                         >
                         <el-button
                             :disabled="showDeleteCheckbox"
                             @click="deleteTableItem([scope.row._id])"
-                            type="danger"
+                            type="danger" icon="el-icon-delete" circle
                             size="small"
-                            >删除</el-button
+                            ></el-button
                         >
                     </template>
                 </el-table-column>
